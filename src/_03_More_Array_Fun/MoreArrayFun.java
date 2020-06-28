@@ -44,20 +44,37 @@ public class MoreArrayFun {
 	//5. Write a method that takes an array of Strings and prints all the Strings in the array
 	//   in a completely random order. Almost every run of the program should result in a different order.
 	static void StringRand(String words[]) {
-		int[] rands = new int[5];
+		int[] rands = {-1,-1,-1,-1,-1};
 		for(int i=0;i<words.length;i++) {
 			int rand = new Random().nextInt(words.length);
-			rands[i] = rand;
-		}
-		for(int i=0;i<rands.length;i++) {
-			for(int k=rands.length;k<0;k++) {
-				if(rands[i]==rands[k]) {
-					rands[i] = new Random().nextInt(words.length);
+			boolean check = true;
+			while(check) {
+				if(!helper(rands,rand)) {
+				rands[i] = rand;
+				check = false;
 				}else {
-					System.out.println(words[i]);
+				rand = new Random().nextInt(words.length);
 				}
 			}
 		}
+		
+		System.out.println(words[words.length]+"--");
+		for(int i=0;i<rands.length;i++) {
+			System.out.println(words[rands[i]]);
+			
+		}
+		
+	}
+	
+	static boolean helper(int[] rands, int numCheck) {
+		for(int i=0;i<rands.length;i++) {
+			if(rands[i]==numCheck) {
+				return true;
+			}
+			
+		}
+		return false;
+		
 	}
 	
 }
